@@ -1,9 +1,14 @@
+#install.packages("dplyr")
+#install.packages("reshape2")
 library(reshape2)
+library(dplyr)
+
+setwd("C:/Users/Rafael.Hernandez.gabrielamontaño/Documents/R/UCI_HAR_Dataset")
 
 # Load activity labels + features
-activityLabels <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/activity_labels.txt")
+activityLabels <- read.table("activity_labels.txt", header = FALSE)
 activityLabels[,2] <- as.character(activityLabels[,2])
-features <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/features.txt")
+features <- read.table("features.txt", header = FALSE)
 features[,2] <- as.character(features[,2])
 
 # Extract only the data on mean and standard deviation
@@ -15,14 +20,14 @@ featuresWanted.names <- gsub('[-()]', '', featuresWanted.names)
 
 
 # Load the datasets
-train <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/train/X_train.txt")[featuresWanted]
-trainActivities <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/train/Y_train.txt")
-trainSubjects <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/train/subject_train.txt")
+train <- read.table("train/X_train.txt", header = FALSE)[featuresWanted]
+trainActivities <- read.table("train/Y_train.txt", header = FALSE)
+trainSubjects <- read.table("train/subject_train.txt", header = FALSE)
 train <- cbind(trainSubjects, trainActivities, train)
 
-test <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/test/X_test.txt")[featuresWanted]
-testActivities <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/test/Y_test.txt")
-testSubjects <- read.table("C:/Users/Mauricio/Documents/R/UCI HAR Dataset/test/subject_test.txt")
+test <- read.table("test/X_test.txt", header = FALSE)[featuresWanted]
+testActivities <- read.table("test/Y_test.txt", header = FALSE)
+testSubjects <- read.table("test/subject_test.txt", header = FALSE)
 test <- cbind(testSubjects, testActivities, test)
 
 # merge datasets and add labels
